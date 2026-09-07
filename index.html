@@ -509,22 +509,65 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+        /* Step 5: Tap to Zoom Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      cursor: zoom-out;
+    }
+    .image-modal.active {
+      display: flex;
+    }
+    .image-modal img {
+      max-width: 95%;
+      max-height: 90vh;
+      border-radius: 16px;
+      box-shadow: 0 0 35px rgba(246, 33, 100, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: zoomIn 0.25s ease-out;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close-hint {
+      position: absolute;
+      bottom: 25px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Audio Tag alag rahega -->
+  
   <audio id="bgSong" loop preload="auto">
     <source src="Nazm.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Button Audio ke bahar aayega -->
   <div id="musicBtn" class="music-disc-btn" onclick="toggleAudio()" title="Play/Pause Music">
     🎵
   </div>
 
   <div class="bg-hearts" id="ambientHearts"></div>
   <canvas id="celebrationCanvas"></canvas>
+  <!-- Tap-to-Zoom Lightbox Modal -->
+<div id="imageModal" class="image-modal" onclick="closeZoomModal()">
+  <img id="modalImg" src="" alt="Zoomed Screenshot" />
+  <div class="modal-close-hint">Tap anywhere to close ✕</div>
+</div>
 
   <div class="app-container">
 
@@ -618,35 +661,34 @@
           </div>
         </div>
         <h2 class="gallery-title">our first day of talking</h2>
-
         <div class="photo-grid-20">
-          <div class="photo-card"><img src="Image 1.jpg" alt="Memory 1" /></div>
-          <div class="photo-card"><img src="Image 2.jpg" alt="Memory 2" /></div>
-          <div class="photo-card"><img src="Image 3.jpg" alt="Memory 3" /></div>
-          <div class="photo-card"><img src="Image 4.jpg" alt="Memory 4" /></div>
-          <div class="photo-card"><img src="Image 5.jpg" alt="Memory 5" /></div>
-          <div class="photo-card"><img src="Image 6.jpg" alt="Memory 6" /></div>
-          <div class="photo-card"><img src="Image 7.jpg" alt="Memory 7" /></div>
-          <div class="photo-card"><img src="Image 8.jpg" alt="Memory 8" /></div>
-          <div class="photo-card"><img src="Image 9.jpg" alt="Memory 9" /></div>
-          <div class="photo-card"><img src="Image10.jpg" alt="Memory 10" /></div>
-          <div class="photo-card"><img src="Image11.jpg" alt="Memory 11" /></div>
-          <div class="photo-card"><img src="Image12.jpg" alt="Memory 12" /></div>
-          <div class="photo-card"><img src="Image13.jpg" alt="Memory 13" /></div>
-          <div class="photo-card"><img src="Image14.jpg" alt="Memory 14" /></div>
-          <div class="photo-card"><img src="Image15.jpg" alt="Memory 15" /></div>
-          <div class="photo-card"><img src="Image16.jpg" alt="Memory 16" /></div>
-          <div class="photo-card"><img src="Image17.jpg" alt="Memory 17" /></div>
-          <div class="photo-card"><img src="Image18.jpg" alt="Memory 18" /></div>
-          <div class="photo-card"><img src="Image19.jpg" alt="Memory 19" /></div>
-          <div class="photo-card"><img src="Image20.jpg" alt="Memory 20" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 1.jpg')"><img src="Image 1.jpg" alt="Memory 1" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 2.jpg')"><img src="Image 2.jpg" alt="Memory 2" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 3.jpg')"><img src="Image 3.jpg" alt="Memory 3" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 4.jpg')"><img src="Image 4.jpg" alt="Memory 4" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 5.jpg')"><img src="Image 5.jpg" alt="Memory 5" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 6.jpg')"><img src="Image 6.jpg" alt="Memory 6" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 7.jpg')"><img src="Image 7.jpg" alt="Memory 7" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 8.jpg')"><img src="Image 8.jpg" alt="Memory 8" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image 9.jpg')"><img src="Image 9.jpg" alt="Memory 9" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image10.jpg')"><img src="Image10.jpg" alt="Memory 10" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image11.jpg')"><img src="Image11.jpg" alt="Memory 11" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image12.jpg')"><img src="Image12.jpg" alt="Memory 12" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image13.jpg')"><img src="Image13.jpg" alt="Memory 13" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image14.jpg')"><img src="Image14.jpg" alt="Memory 14" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image15.jpg')"><img src="Image15.jpg" alt="Memory 15" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image16.jpg')"><img src="Image16.jpg" alt="Memory 16" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image17.jpg')"><img src="Image17.jpg" alt="Memory 17" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image18.jpg')"><img src="Image18.jpg" alt="Memory 18" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image19.jpg')"><img src="Image19.jpg" alt="Memory 19" /></div>
+          <div class="photo-card" onclick="openZoomModal('Image20.jpg')"><img src="Image20.jpg" alt="Memory 20" /></div>
         </div>
-
+        
         <h2 class="gallery-title" style="margin-top: 10px;">our first call</h2>
-
-        <div class="call-card">
-          <img src="First call.jpg" alt="Our First Call Screenshot" />
+        <div class="call-card" onclick="openZoomModal('call.jpg')">
+          <img src="call.jpg" alt="Our First Call Screenshot" />
         </div>
+        
 
         <button type="button" class="btn-primary" style="margin-top: 14px;" onclick="switchScreen('screen2', 'screen3')">
           Next ➔
