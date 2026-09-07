@@ -428,6 +428,20 @@
   margin-top: 18px;
   text-decoration: none;
 }
+        /* Touch Pop Heart */
+    .touch-heart {
+      position: fixed;
+      pointer-events: none;
+      font-size: 22px;
+      z-index: 9999;
+      animation: touchPop 0.8s ease-out forwards;
+      filter: drop-shadow(0 0 8px rgba(255, 42, 109, 0.9));
+    }
+    @keyframes touchPop {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+      50% { transform: translate(-50%, -80px) scale(1.3); opacity: 0.9; }
+      100% { transform: translate(-50%, -120px) scale(1.6); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -815,6 +829,17 @@
       }
       render();
     }
+        // Magical Touch Pop Heart Effect
+    document.addEventListener('pointerdown', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+      const heart = document.createElement('div');
+      heart.className = 'touch-heart';
+      heart.textContent = ['💖', '💕', '💗', '❤️', '✨'][Math.floor(Math.random() * 5)];
+      heart.style.left = e.clientX + 'px';
+      heart.style.top = e.clientY + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 800);
+    });
   </script>
 </body>
 </html>
